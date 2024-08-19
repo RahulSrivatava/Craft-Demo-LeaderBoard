@@ -1,7 +1,7 @@
 package com.crafts_demo.LeaderBoard.services;
 
 import com.crafts_demo.LeaderBoard.entity.leaderBoard;
-import com.crafts_demo.LeaderBoard.entity.playerGoals;
+import com.crafts_demo.LeaderBoard.entity.playerGoal;
 import com.crafts_demo.LeaderBoard.repository.playerGoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +14,23 @@ import java.util.Optional;
 
 @Service
 public class goalsAggregratorServiceImpl implements goalsAggregratorService , goalsAggregatorToStorage ,goalsAggregatorToScoreBoard {
-    List<leaderBoard> scoreBoardList = new ArrayList<>();
 
    @Autowired
    playerGoalRepository goalRepository;
 
-    public void saveToScoreBoard(playerGoals newGoal) {
-        System.out.println(newGoal.getPlayerID()+newGoal.getGoals());
-    }
+//   @Autowired
+   leaderBoardService leaderBoard;
 
-    public void saveToStore(playerGoals newGoal) {
+    public void saveToScoreBoard(playerGoal newGoal) {
+//        System.out.println(newGoal.getPlayerID()+newGoal.getGoals());
+            leaderBoard.saveData(newGoal);
+    }
+    public void registerLeaderBoard(leaderBoardService deffaultBoard) {
+        leaderBoard=deffaultBoard;
+    }
+    public void saveToStore(playerGoal newGoal) {
         try {
-            Optional<playerGoals> playerPresent = goalRepository.findById(newGoal.getPlayerID());
+            Optional<playerGoal> playerPresent = goalRepository.findById(newGoal.getPlayerId());
             if (playerPresent.isPresent() && playerPresent.get().getGoals() >= newGoal.getGoals()) {
                 return;
             }
@@ -37,7 +42,7 @@ public class goalsAggregratorServiceImpl implements goalsAggregratorService , go
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void storeData( playerGoals newGoal) {
+    public void storeData( playerGoal newGoal) {
         saveToStore(newGoal);
         saveToScoreBoard(newGoal);
     }
