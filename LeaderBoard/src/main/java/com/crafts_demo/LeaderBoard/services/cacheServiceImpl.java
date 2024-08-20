@@ -13,21 +13,28 @@ public class cacheServiceImpl implements cacheService<playerGoal> {
 
     public void intializeCache(int topN, List<playerGoal> goals) {
         this.topN = topN;
-        minHeap = new PriorityQueue<playerGoal>();
-        playerToGoal = new HashMap<String, playerGoal>();
-        for (playerGoal score : goals) {
-             if (minHeap.size() < topN) {
-                minHeap.add(score);
-                playerToGoal.put(score.getPlayerId(), score);
-            } else {
-                if (score.getGoal() > minHeap.peek().getGoal()) {
-                    playerGoal removedScore = minHeap.poll();
+        try{
+            minHeap = new PriorityQueue<playerGoal>();
+            playerToGoal = new HashMap<String, playerGoal>();
+            for (playerGoal score : goals) {
+                if (minHeap.size() < topN) {
                     minHeap.add(score);
-                    playerToGoal.remove(removedScore.getPlayerId());
                     playerToGoal.put(score.getPlayerId(), score);
+                } else {
+                    if (score.getGoal() > minHeap.peek().getGoal()) {
+                        playerGoal removedScore = minHeap.poll();
+                        minHeap.add(score);
+                        playerToGoal.remove(removedScore.getPlayerId());
+                        playerToGoal.put(score.getPlayerId(), score);
+                    }
                 }
             }
+
         }
+        catch (Exception e){
+            throw e;
+        }
+
     }
 
     public void saveDataToCache(playerGoal newGoal) {

@@ -15,15 +15,13 @@ public class goalsAggregratorServiceImpl implements goalsAggregratorService , go
    @Autowired
    playerGoalRepository goalRepository;
 
-//   @Autowired
    leaderBoardService leaderBoard;
 
     public void saveToScoreBoard(playerGoal newGoal) {
-//        System.out.println(newGoal.getPlayerID()+newGoal.getGoals());
             leaderBoard.saveData(newGoal);
     }
-    public void registerLeaderBoard(leaderBoardService deffaultBoard) {
-        leaderBoard=deffaultBoard;
+    public void registerLeaderBoard(leaderBoardService defaultBoard) {
+        leaderBoard=defaultBoard;
     }
     public void saveToStore(playerGoal newGoal) {
         try {

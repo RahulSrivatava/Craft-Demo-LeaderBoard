@@ -53,13 +53,6 @@ public class playerGoal implements Comparable<playerGoal> {
     }
 
     @Override
-    public int hashCode() {
-        int result = playerId.hashCode();
-        result = 31 * result + goal.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "{" + playerId + " " + goal + "}";
     }
