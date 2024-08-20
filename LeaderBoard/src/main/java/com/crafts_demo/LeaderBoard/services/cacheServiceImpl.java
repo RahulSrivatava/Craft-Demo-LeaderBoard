@@ -20,7 +20,7 @@ public class cacheServiceImpl implements cacheService<playerGoal> {
                 minHeap.add(score);
                 playerToGoal.put(score.getPlayerId(), score);
             } else {
-                if (score.getGoals() > minHeap.peek().getGoals()) {
+                if (score.getGoal() > minHeap.peek().getGoal()) {
                     playerGoal removedScore = minHeap.poll();
                     minHeap.add(score);
                     playerToGoal.remove(removedScore.getPlayerId());
@@ -35,7 +35,7 @@ public class cacheServiceImpl implements cacheService<playerGoal> {
             if (playerToGoal.containsKey(newGoal.getPlayerId())) {
                 playerGoal scoreToBeUpdated = playerToGoal.get(newGoal.getPlayerId());
 
-                if (scoreToBeUpdated.getGoals() < newGoal.getGoals()) {
+                if (scoreToBeUpdated.getGoal() < newGoal.getGoal()) {
                     minHeap.remove(scoreToBeUpdated);
                     playerToGoal.put(newGoal.getPlayerId(), newGoal);
                     minHeap.add(newGoal);
@@ -46,7 +46,7 @@ public class cacheServiceImpl implements cacheService<playerGoal> {
                 minHeap.add(newGoal);
                 playerToGoal.put(newGoal.getPlayerId(), newGoal);
             } else {
-                if (newGoal.getGoals() > minHeap.peek().getGoals()) {
+                if (newGoal.getGoal() > minHeap.peek().getGoal()) {
                     playerGoal removedScore = minHeap.poll();
                     minHeap.add(newGoal);
                     playerToGoal.remove(removedScore.getPlayerId());

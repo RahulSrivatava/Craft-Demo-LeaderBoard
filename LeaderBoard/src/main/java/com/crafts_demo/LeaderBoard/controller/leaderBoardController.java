@@ -15,13 +15,8 @@ public class leaderBoardController {
     @Autowired
     leaderBoardService leaderBoard;
 
-//    public String getReponse(){
-//        return "HI";
-//    }
     @GetMapping ("/getTopNPlayer")
     public List<playerGoal> getTopNPlayer() {
-//        System.out.println(msg);
-//        producer.addtoqueue(msg);
         return leaderBoard.getTopNPlayer();
     }
 }

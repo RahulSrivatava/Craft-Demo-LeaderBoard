@@ -4,9 +4,9 @@ import com.crafts_demo.LeaderBoard.entity.playerGoal;
 
 import java.util.List;
 
-public interface leaderBoardService <T>{
+public interface leaderBoardService{
     public void createBoard();
-    public void saveData(T newGoal);
-    public List<T> getTopNPlayer();
+    public void saveData(playerGoal newGoal);
+    public List<playerGoal> getTopNPlayer();
 
 }

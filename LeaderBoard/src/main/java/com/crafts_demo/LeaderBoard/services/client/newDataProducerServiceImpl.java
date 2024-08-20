@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import static com.crafts_demo.LeaderBoard.contants.constants.KAFKA_TOPIC;
 
 @Service
-public class newDataProducerServiceImpl implements newDataProduceService<playerGoal> {
+public class newDataProducerServiceImpl implements newDataProducerService<playerGoal> {
     @Autowired
     private KafkaTemplate<String, playerGoal> kafkaTemplate;
 
-    public void addtoqueue(playerGoal newdata) {
+    public void addToQueue(playerGoal newdata) {
         kafkaTemplate.send(KAFKA_TOPIC, newdata);
 
     }

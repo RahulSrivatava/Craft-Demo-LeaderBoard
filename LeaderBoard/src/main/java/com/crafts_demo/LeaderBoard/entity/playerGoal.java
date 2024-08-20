@@ -9,14 +9,14 @@ import jakarta.persistence.Table;
 public class playerGoal implements Comparable<playerGoal> {
     @Id
     private String playerId;
-    private Long goals;
+    private Integer goal;
 
     public playerGoal() {
     }
 
-    public playerGoal(String playerId, Long goals) {
+    public playerGoal(String playerId, Integer goal) {
         this.playerId = playerId;
-        this.goals = goals;
+        this.goal = goal;
     }
 
     public String getPlayerId() {
@@ -27,17 +27,17 @@ public class playerGoal implements Comparable<playerGoal> {
         this.playerId = playerId;
     }
 
-    public Long getGoals() {
-        return goals;
+    public Integer getGoal() {
+        return goal;
     }
 
-    public void setGoals(Long goals) {
-        this.goals = goals;
+    public void setGoal(Integer goals) {
+        this.goal = goals;
     }
 
     @Override
     public int compareTo(playerGoal p) {
-        int goalComparison = Long.compare(this.goals, p.getGoals());
+        int goalComparison = Long.compare(this.goal, p.getGoal());
         if (goalComparison == 0) {
             return this.playerId.compareTo(p.getPlayerId());
         }
@@ -49,18 +49,18 @@ public class playerGoal implements Comparable<playerGoal> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         playerGoal that = (playerGoal) o;
-        return playerId.equals(that.playerId) && goals.equals(that.goals);
+        return playerId.equals(that.playerId) && goal.equals(that.goal);
     }
 
     @Override
     public int hashCode() {
         int result = playerId.hashCode();
-        result = 31 * result + goals.hashCode();
+        result = 31 * result + goal.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "{" + playerId + " " + goals + "}";
+        return "{" + playerId + " " + goal + "}";
     }
 }

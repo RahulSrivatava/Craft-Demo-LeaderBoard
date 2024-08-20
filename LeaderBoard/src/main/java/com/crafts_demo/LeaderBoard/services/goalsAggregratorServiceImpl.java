@@ -1,6 +1,5 @@
 package com.crafts_demo.LeaderBoard.services;
 
-import com.crafts_demo.LeaderBoard.entity.leaderBoard;
 import com.crafts_demo.LeaderBoard.entity.playerGoal;
 import com.crafts_demo.LeaderBoard.repository.playerGoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class goalsAggregratorServiceImpl implements goalsAggregratorService , goalsAggregatorToStorage ,goalsAggregatorToScoreBoard {
+public class goalsAggregratorServiceImpl implements goalsAggregratorService , goalsAggregatorToStorage , goalsAggregratorToScoreBoard {
 
    @Autowired
    playerGoalRepository goalRepository;
@@ -31,7 +28,7 @@ public class goalsAggregratorServiceImpl implements goalsAggregratorService , go
     public void saveToStore(playerGoal newGoal) {
         try {
             Optional<playerGoal> playerPresent = goalRepository.findById(newGoal.getPlayerId());
-            if (playerPresent.isPresent() && playerPresent.get().getGoals() >= newGoal.getGoals()) {
+            if (playerPresent.isPresent() && playerPresent.get().getGoal() >= newGoal.getGoal()) {
                 return;
             }
             goalRepository.save(newGoal);
