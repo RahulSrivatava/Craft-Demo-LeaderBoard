@@ -1,6 +1,8 @@
 package com.crafts_demo.LeaderBoard.services;
 
 import com.crafts_demo.LeaderBoard.entity.playerGoal;
+import com.crafts_demo.LeaderBoard.exceptions.CacheInitializationException;
+import com.crafts_demo.LeaderBoard.exceptions.CacheUpdateFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,7 +13,7 @@ public class cacheServiceImpl implements cacheService<playerGoal> {
     PriorityQueue<playerGoal> minHeap;
     Map<String, playerGoal> playerToGoal;
 
-    public void intializeCache(int topN, List<playerGoal> goals) {
+    public void intializeCache(int topN, List<playerGoal> goals)throws CacheInitializationException {
         this.topN = topN;
         try{
             minHeap = new PriorityQueue<playerGoal>();
@@ -32,12 +34,12 @@ public class cacheServiceImpl implements cacheService<playerGoal> {
 
         }
         catch (Exception e){
-            throw e;
+            throw new CacheInitializationException("Failed to initialize cache");
         }
 
     }
 
-    public void saveDataToCache(playerGoal newGoal) {
+    public void saveDataToCache(playerGoal newGoal)throws CacheUpdateFailureException {
         try{
             if (playerToGoal.containsKey(newGoal.getPlayerId())) {
                 playerGoal scoreToBeUpdated = playerToGoal.get(newGoal.getPlayerId());
@@ -62,7 +64,7 @@ public class cacheServiceImpl implements cacheService<playerGoal> {
             }
         }
         catch (Exception e) {
-            System.out.println(e);
+            throw new CacheUpdateFailureException(e.getMessage());
         }
 
     }

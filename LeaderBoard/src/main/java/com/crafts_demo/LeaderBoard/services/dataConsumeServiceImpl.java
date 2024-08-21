@@ -15,7 +15,11 @@ public class dataConsumeServiceImpl implements dataConsumeService<playerGoal> {
     @KafkaListener(topics = KAFKA_TOPIC, groupId = KAFKA_GROUP_ID)
     public void consumeData(playerGoal data) {
         System.out.println("Data is Comming " + data);
-        goalsAggregrator.storeData(data);
+        try{
+            goalsAggregrator.storeData(data);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
 

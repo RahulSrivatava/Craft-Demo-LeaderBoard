@@ -32,7 +32,7 @@ public class LeaderBoardApplicationTests {
     public void testServiceComponents() throws InterruptedException  {
 
 		try {
-			leaderBoard.createBoard();
+			leaderBoard.createBoard(5);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

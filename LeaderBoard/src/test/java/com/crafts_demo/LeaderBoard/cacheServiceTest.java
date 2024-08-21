@@ -1,6 +1,8 @@
 package com.crafts_demo.LeaderBoard;
 
 import com.crafts_demo.LeaderBoard.entity.playerGoal;
+import com.crafts_demo.LeaderBoard.exceptions.CacheInitializationException;
+import com.crafts_demo.LeaderBoard.exceptions.CacheUpdateFailureException;
 import com.crafts_demo.LeaderBoard.services.cacheService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +39,7 @@ public class cacheServiceTest {
 
         try {
             cache.intializeCache(3, inputList);
-        } catch (Exception e) {
+        } catch (CacheInitializationException e) {
             fail(e.getMessage());
         }
         System.out.println(cache.getTopNPlayer());
@@ -45,7 +47,7 @@ public class cacheServiceTest {
         playerGoal p5 = new playerGoal("Rahul", 9);
         try {
             cache.saveDataToCache(p5);
-        } catch (Exception e) {
+        } catch (CacheUpdateFailureException e) {
             fail(e.getMessage());
         }
         outputList = new ArrayList<playerGoal>();

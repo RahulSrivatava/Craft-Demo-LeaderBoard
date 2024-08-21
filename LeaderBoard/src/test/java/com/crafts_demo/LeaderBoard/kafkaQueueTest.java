@@ -1,6 +1,7 @@
 package com.crafts_demo.LeaderBoard;
 
 import com.crafts_demo.LeaderBoard.entity.playerGoal;
+import com.crafts_demo.LeaderBoard.exceptions.QueueFailureException;
 import com.crafts_demo.LeaderBoard.services.client.newDataProducerService;
 import com.crafts_demo.LeaderBoard.services.leaderBoardService;
 import org.junit.Test;
@@ -25,9 +26,7 @@ public class kafkaQueueTest {
     public void kafkaTest() {
         try {
             producer.addToQueue(new playerGoal("GB", 100));
-            Thread.sleep(5000);
-            System.out.println(leaderBoard.getTopNPlayer());
-        } catch (Exception e) {
+        } catch (QueueFailureException e) {
             fail(e.getMessage());
         }
     }
